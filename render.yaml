@@ -2,7 +2,7 @@ services:
   - type: web
     name: elscooter
     env: static
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npx react-scripts build
     staticPublishPath: ./build
     routes:
       - type: rewrite
