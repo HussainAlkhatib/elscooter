@@ -1,0 +1,35 @@
+.icon-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #f0f2f5;
+  border: none;
+  border-radius: 20px;
+  padding: 15px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 3px 3px 6px #d9d9d9, -3px -3px 6px #ffffff;
+}
+
+.icon-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+}
+
+.icon-button:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 2px #d9d9d9, -1px -1px 2px #ffffff;
+}
+
+.icon-button-icon {
+  font-size: 28px;
+  color: #007aff;
+}
+
+.icon-button-label {
+  font-size: 14px;
+  font-weight: 500;
+}
