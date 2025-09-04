@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -7,6 +7,15 @@ import { useBluetooth } from './hooks/useBluetooth';
 
 function App() {
   const { connect, disconnect, autoDetect, isConnected, scooterData, deviceInfo, error } = useBluetooth();
+  const [viewingFeatures, setViewingFeatures] = useState(false);
+
+  const handleViewFeatures = () => {
+    setViewingFeatures(true);
+  };
+
+  const handleBackToConnect = () => {
+    setViewingFeatures(false);
+  };
 
   return (
     <div className="app-container">
@@ -14,11 +23,14 @@ function App() {
         onConnect={isConnected ? disconnect : connect} 
         onAutoDetect={autoDetect}
         isConnected={isConnected} 
+        onViewFeatures={handleViewFeatures}
+        onBackToConnect={handleBackToConnect}
+        viewingFeatures={viewingFeatures}
       />
       {error && <div className="error-message">Error: {error}</div>}
       {deviceInfo && <div className="device-info">{deviceInfo}</div>}
 
-      {!isConnected ? (
+      {!isConnected && !viewingFeatures ? (
         <div className="disconnected-state">
           <p>Connect your scooter to get started.</p>
           <button onClick={autoDetect} className="auto-detect-button large-button">
@@ -29,7 +41,11 @@ function App() {
           </button>
         </div>
       ) : (
-        <Dashboard scooterData={scooterData} isConnected={isConnected} />
+        <Dashboard 
+          scooterData={scooterData} 
+          isConnected={isConnected} 
+          readOnly={viewingFeatures && !isConnected}
+        />
       )}
       <Footer />
     </div>

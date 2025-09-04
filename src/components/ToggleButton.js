@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './ToggleButton.css';
 
-const ToggleButton = ({ label, icon }) => {
+const ToggleButton = ({ label, icon, readOnly }) => {
   const [isOn, setIsOn] = useState(false);
 
   const handleToggle = () => {
+    if (readOnly) return; // Prevent interaction in read-only mode
     setIsOn(!isOn);
     // Later, this will send a command to the scooter
   };
@@ -16,7 +17,7 @@ const ToggleButton = ({ label, icon }) => {
         <span>{label}</span>
       </div>
       <label className="switch">
-        <input type="checkbox" checked={isOn} onChange={handleToggle} />
+        <input type="checkbox" checked={isOn} onChange={handleToggle} disabled={readOnly} />
         <span className="slider round"></span>
       </label>
     </div>

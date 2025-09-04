@@ -19,7 +19,9 @@
   gap: 10px;
 }
 
-.auto-detect-button {
+.auto-detect-button,
+.view-features-button,
+.back-button {
   background-color: #f0f2f5;
   color: #007aff;
   border: 1px solid #007aff;
@@ -28,7 +30,8 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .connect-button {
@@ -40,13 +43,26 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .connect-button.connected {
   background-color: #34c759;
 }
 
-.connect-button:hover, .auto-detect-button:hover {
-  opacity: 0.9;
+.connect-button:hover, 
+.auto-detect-button:hover,
+.view-features-button:hover,
+.back-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.connect-button:active, 
+.auto-detect-button:active,
+.view-features-button:active,
+.back-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
