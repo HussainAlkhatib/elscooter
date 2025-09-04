@@ -1,8 +1,9 @@
 services:
-  - type: static site
+  - type: web
     name: elscooter
+    env: static
     buildCommand: npm install && ./node_modules/.bin/react-scripts build
-    publishDir: ./build
+    staticPublishPath: ./build
     routes:
       - type: rewrite
         source: /*
