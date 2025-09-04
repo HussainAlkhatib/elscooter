@@ -17,7 +17,20 @@ function App() {
       />
       {error && <div className="error-message">Error: {error}</div>}
       {deviceInfo && <div className="device-info">{deviceInfo}</div>}
-      <Dashboard scooterData={scooterData} isConnected={isConnected} />
+
+      {!isConnected ? (
+        <div className="disconnected-state">
+          <p>Connect your scooter to get started.</p>
+          <button onClick={autoDetect} className="auto-detect-button large-button">
+            Auto Detect Scooter
+          </button>
+          <button onClick={connect} className="connect-button large-button">
+            Connect Manually
+          </button>
+        </div>
+      ) : (
+        <Dashboard scooterData={scooterData} isConnected={isConnected} />
+      )}
       <Footer />
     </div>
   );

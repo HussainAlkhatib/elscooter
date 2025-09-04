@@ -12,7 +12,6 @@ const Dashboard = ({ scooterData, isConnected }) => {
 
   return (
     <main className="dashboard">
-      {!isConnected && <div className="overlay">Please connect to your scooter</div>}
       <Speedometer speed={speed} />
       
       <div className="stats-grid">
