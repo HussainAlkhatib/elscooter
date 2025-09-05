@@ -16,7 +16,7 @@
 
 .header-buttons {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
 .auto-detect-button,

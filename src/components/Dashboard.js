@@ -7,12 +7,11 @@ import ToggleButton from './ToggleButton';
 import ControlSlider from './ControlSlider';
 import IconButton from './IconButton';
 
-const Dashboard = ({ scooterData, isConnected, readOnly }) => {
+const Dashboard = ({ scooterData, isConnected, readOnly, writeCommand }) => {
   const { speed, battery } = scooterData;
 
   return (
     <main className="dashboard">
-      {readOnly && <div className="read-only-overlay">View Only Mode</div>}
       <Speedometer speed={speed} />
       
       <div className="stats-grid">
@@ -27,17 +26,21 @@ const Dashboard = ({ scooterData, isConnected, readOnly }) => {
           max={30} 
           initialValue={25} 
           readOnly={readOnly}
+          writeCommand={writeCommand}
         />
       </Card>
 
       <Card>
-        <ToggleButton label="Headlight" icon="💡" readOnly={readOnly} />
-        <ToggleButton label="Taillight" icon="🚨" readOnly={readOnly} />
+        <ToggleButton label="Headlight" icon="💡" readOnly={readOnly} writeCommand={writeCommand} />
+        <ToggleButton label="Taillight" icon="🚨" readOnly={readOnly} writeCommand={writeCommand} />
+        <ToggleButton label="Cruise Control" icon=" cruise" readOnly={readOnly} writeCommand={writeCommand} />
       </Card>
 
       <div className="actions-grid">
-        <IconButton label="Horn" icon="🔊" readOnly={readOnly} />
-        <IconButton label="Lock" icon="🔒" readOnly={readOnly} />
+        <IconButton label="Horn" icon="🔊" readOnly={readOnly} writeCommand={writeCommand} />
+        <IconButton label="Lock" icon="🔒" readOnly={readOnly} writeCommand={writeCommand} />
+        <IconButton label="Eco Mode" icon="🍃" readOnly={readOnly} writeCommand={writeCommand} />
+        <IconButton label="Sport Mode" icon="🚀" readOnly={readOnly} writeCommand={writeCommand} />
       </div>
     </main>
   );

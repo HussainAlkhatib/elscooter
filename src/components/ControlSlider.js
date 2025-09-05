@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import './ControlSlider.css';
 
-const ControlSlider = ({ label, icon, min, max, initialValue, readOnly }) => {
+const ControlSlider = ({ label, icon, min, max, initialValue, readOnly, writeCommand }) => {
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (e) => {
     if (readOnly) return; // Prevent interaction in read-only mode
-    setValue(e.target.value);
-    // Later, this will send a command to the scooter
+    const newValue = parseInt(e.target.value, 10);
+    setValue(newValue);
+
+    // --- IMPORTANT: Scooter-specific command ---
+    // You MUST replace this with the actual command for your scooter.
+    // Example: [0x01, 0x02, newValue, 0x00] (placeholder)
+    const command = [0x01, 0x02, newValue, 0x00]; // Placeholder command
+    writeCommand(command);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 // --- IMPORTANT ---
 // You need to replace these placeholder UUIDs with the actual ones from your scooter.
@@ -17,6 +17,8 @@ export const useBluetooth = () => {
   const [deviceInfo, setDeviceInfo] = useState(null);
   const [scooterData, setScooterData] = useState({ speed: 0, battery: 0 });
   const [error, setError] = useState(null);
+
+  const writeCharacteristicRef = useRef(null); // To store the write characteristic
 
   const autoDetect = async () => {
     try {
@@ -87,6 +89,8 @@ export const useBluetooth = () => {
       notifyCharacteristic.startNotifications();
       notifyCharacteristic.addEventListener('characteristicvaluechanged', handleNotifications);
 
+      writeCharacteristicRef.current = writeCharacteristic; // Store the characteristic
+
       setDevice(bleDevice);
       setIsConnected(true);
       console.log('Connected!');
@@ -110,12 +114,41 @@ export const useBluetooth = () => {
     setIsConnected(false);
     setDevice(null);
     setScooterData({ speed: 0, battery: 0 });
+    writeCharacteristicRef.current = null; // Clear the characteristic
   };
 
   const handleNotifications = (event) => {
-    const value = event.target.value;
-    console.log('Received data:', value);
+    const value = event.target.value; // This is a DataView
+    console.log('Received raw data:', value);
+
+    // --- IMPORTANT: Scooter-specific data parsing ---
+    // You MUST replace this with the actual protocol of your scooter.
+    // This is just a placeholder example.
+    try {
+      // Example: Assuming first byte is speed, second is battery (highly unlikely for real scooters)
+      const speed = value.getUint8(0); 
+      const battery = value.getUint8(1); 
+      setScooterData({ speed, battery });
+    } catch (e) {
+      console.error('Error parsing scooter data:', e);
+    }
   };
 
-  return { connect, disconnect, autoDetect, isConnected, scooterData, deviceInfo, error };
+  const writeCommand = async (commandBytes) => {
+    if (!writeCharacteristicRef.current) {
+      console.error('Write characteristic not available. Not connected?');
+      setError('Not connected to scooter.');
+      return;
+    }
+    try {
+      const data = new Uint8Array(commandBytes);
+      await writeCharacteristicRef.current.writeValue(data);
+      console.log('Command sent:', commandBytes);
+    } catch (e) {
+      console.error('Error sending command:', e);
+      setError('Failed to send command.');
+    }
+  };
+
+  return { connect, disconnect, autoDetect, writeCommand, isConnected, scooterData, deviceInfo, error };
 };

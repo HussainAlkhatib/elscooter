@@ -1,10 +1,28 @@
 import React from 'react';
 import './IconButton.css';
 
-const IconButton = ({ label, icon, readOnly }) => {
+const IconButton = ({ label, icon, readOnly, writeCommand }) => {
   const handleClick = () => {
     if (readOnly) return; // Prevent interaction in read-only mode
-    // Later, this will send a command to the scooter
+
+    // --- IMPORTANT: Scooter-specific command ---
+    // You MUST replace this with the actual command for your scooter.
+    let command;
+    if (label === "Horn") {
+      command = [0x04, 0x01]; // Placeholder for Horn command
+    } else if (label === "Lock") {
+      command = [0x05, 0x01]; // Placeholder for Lock command
+    } else if (label === "Unlock") {
+      command = [0x05, 0x00]; // Placeholder for Unlock command
+    } else if (label === "Eco Mode") {
+      command = [0x07, 0x01]; // Placeholder for Eco Mode command
+    } else if (label === "Sport Mode") {
+      command = [0x07, 0x02]; // Placeholder for Sport Mode command
+    }
+
+    if (command) {
+      writeCommand(command);
+    }
     console.log(`${label} button clicked`);
   };
 

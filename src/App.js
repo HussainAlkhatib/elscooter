@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import { useBluetooth } from './hooks/useBluetooth';
 
 function App() {
-  const { connect, disconnect, autoDetect, isConnected, scooterData, deviceInfo, error } = useBluetooth();
+  const { connect, disconnect, autoDetect, writeCommand, isConnected, scooterData, deviceInfo, error } = useBluetooth();
   const [viewingFeatures, setViewingFeatures] = useState(false);
 
   const handleViewFeatures = () => {
@@ -45,6 +45,7 @@ function App() {
           scooterData={scooterData} 
           isConnected={isConnected} 
           readOnly={viewingFeatures && !isConnected}
+          writeCommand={writeCommand}
         />
       )}
       <Footer />
