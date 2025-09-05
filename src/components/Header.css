@@ -16,18 +16,21 @@
 
 .header-buttons {
   display: flex;
-  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Reduced gap slightly to fit more buttons */
 }
 
 .auto-detect-button,
 .view-features-button,
-.back-button {
+.back-button,
+.connect-button {
   background-color: #f0f2f5;
   color: #007aff;
   border: 1px solid #007aff;
   border-radius: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 8px 15px; /* Reduced padding */
+  font-size: 14px; /* Reduced font size */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -38,13 +41,6 @@
   background-color: #007aff;
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .connect-button.connected {
